@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="DOX2.png" type="image/x-icon">
+    <title>Our Service & Charges</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .menu button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1 1 calc(50% - 20px);
+            max-width: 200px;
+        }
+        .menu button:hover {
+            background-color: #0056b3;
+        }
+        .image-container {
+            text-align: center;
+            width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .image-container img {
+            max-width: 90%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .heading {
+            text-align: center;
+            color: rgb(205, 9, 9);
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+        .floating-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #007BFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .floating-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+        }
+        .floating-icon:hover {
+            transform: scale(1.1);
+        }
+        .home-icon {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #28a745;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .home-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+        }
+        .home-icon:hover {
+            transform: scale(1.1);
+        }
+        .expanded-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            z-index: 1000;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        .expanded-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .menu button {
+                flex: 1 1 100%;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heading">
+        <h1>TAP TO SEE</h1>
+    </div>
+    <div class="menu">
+        <button onclick="showImage(1)">OUR SERVICE</button>
+        <button onclick="showImage(2)">WEBSITE'S TYPE</button>
+        <button onclick="showImage(3)">LOGO CHARGE</button>
+        <button onclick="showImage(4)">MORE DETAILS</button>
+        <button onclick="showImage(5)">OTHER WORKS</button>
+    </div>
+    <div class="image-container">
+        <img id="displayedImage" src="welcome.jpg" alt="Click a menu to display an image">
+    </div>
+    <div class="home-icon" onclick="reloadPage()">
+        <img src="home.png" alt="Home Icon"> <!-- Replace home-icon.png with your home icon image -->
+    </div>
+    <div class="floating-icon" onclick="expandIconImage()">
+        <img src="contact.png" alt="Contact Icon"> <!-- Replace contact-icon.png with your circular contact icon image -->
+    </div>
+
+    <!-- Expanded Image View -->
+    <div class="overlay" id="overlay" onclick="closeExpandedImage()"></div>
+    <div class="expanded-image" id="expandedImageContainer">
+        <img src="conx.png" id="expandedImage" alt="Expanded Image"> <!-- Replace contact-icon.png with the image you want to expand -->
+    </div>
+
+    <script>
+        // Define the image sources
+        const imageSources = [
+            "image1.jpg", // Replace with your first image path
+            "image2.jpg", // Replace with your second image path
+            "image3.jpg", // Replace with your third image path
+            "image4.jpg", // Replace with your fourth image path
+            "image5.jpg"  // Replace with your fifth image path
+        ];
+
+        function showImage(index) {
+            // Get the image element
+            const imageElement = document.getElementById('displayedImage');
+            
+            // Set the source of the image to the corresponding index
+            if (imageSources[index - 1]) {
+                imageElement.src = imageSources[index - 1];
+                imageElement.alt = `Image ${index}`;
+            } else {
+                imageElement.src = "";
+                imageElement.alt = "Image not found";
+            }
+        }
+
+        function expandIconImage() {
+            const overlay = document.getElementById('overlay');
+            const expandedImageContainer = document.getElementById('expandedImageContainer');
+            const expandedImage = document.getElementById('expandedImage');
+
+            overlay.style.display = 'block';
+            expandedImageContainer.style.display = 'block';
+            expandedImage.src = "conx.png"; // Ensure this matches the floating icon image
+        }
+
+        function closeExpandedImage() {
+            const overlay = document.getElementById('overlay');
+            const expandedImageContainer = document.getElementById('expandedImageContainer');
+
+            overlay.style.display = 'none';
+            expandedImageContainer.style.display = 'none';
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
